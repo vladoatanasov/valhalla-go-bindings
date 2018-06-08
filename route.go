@@ -10,6 +10,7 @@ type RouteRequest struct {
 	Costing           string            `json:"costing,omitempty"`
 	DirectionsOptions DirectionsOptions `json:"directions_options,omitempty"`
 	ID                string            `json:"id,omitempty"`
+	CostingOptions    CostingOptions    `json:"costing_options,omitempty"`
 }
 
 type RouteResponse struct {
