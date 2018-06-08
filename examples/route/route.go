@@ -24,8 +24,10 @@ func main() {
 	request.DirectionsOptions.Units = "miles"
 	request.ID = "Chicago sightseeing"
 
-	err := c.Route(request)
+	route, err := c.Route(request)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Printf("%+v\n", route)
 }
