@@ -22,6 +22,7 @@ func main() {
 
 	request.Costing = "auto"
 	request.DirectionsOptions.Units = "miles"
+	request.DirectionsOptions.Narrative = false
 	request.CostingOptions.Auto.CountryCrossingPenalty = 2000.0
 	request.ID = "Chicago sightseeing"
 

@@ -11,6 +11,7 @@ type RouteRequest struct {
 	DirectionsOptions DirectionsOptions `json:"directions_options,omitempty"`
 	ID                string            `json:"id,omitempty"`
 	CostingOptions    CostingOptions    `json:"costing_options,omitempty"`
+	AvoidLocations    []Location        `json:"avoid_locations,omitempty"`
 }
 
 type RouteResponse struct {
