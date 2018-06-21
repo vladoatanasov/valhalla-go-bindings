@@ -16,11 +16,11 @@ func New(endpoint string) *Client {
 	}
 }
 
-func (c *Client) request(method, resource string, body io.Reader) ([]byte, error) {
+func (c *Client) request(method, resource string, body io.Reader) ([]byte, int, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(method, c.Endpoint+"/"+resource, body)
 	if err != nil {
-		return nil, err
+		return nil, 500, err
 	}
 
 	// todo: hide debug information once I'm done
@@ -29,7 +29,7 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, error
 
 	res, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return nil, 500, err
 	}
 
 	defer res.Body.Close()
@@ -37,6 +37,7 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, error
 	// dump, _ := httputil.DumpResponse(res, true)
 	// log.Println(string(dump))
 
-	return ioutil.ReadAll(res.Body)
+	r, err := ioutil.ReadAll(res.Body)
+	return r, res.StatusCode, err
 
 }

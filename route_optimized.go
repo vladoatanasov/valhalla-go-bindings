@@ -3,6 +3,7 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 func (c *Client) RouteOptimized(request RouteRequest) (RouteResponse, error) {
@@ -11,9 +12,19 @@ func (c *Client) RouteOptimized(request RouteRequest) (RouteResponse, error) {
 		return RouteResponse{}, err
 	}
 
-	response, err := c.request("GET", "optimized_route", bytes.NewReader(r))
+	response, status, err := c.request("GET", "optimized_route", bytes.NewReader(r))
 	if err != nil {
 		return RouteResponse{}, err
+	}
+
+	if status >= 400 {
+		result := ValhallaError{}
+		err = json.Unmarshal(response, &result)
+		if err != nil {
+			return RouteResponse{}, err
+		}
+
+		return RouteResponse{}, fmt.Errorf("%+v", result)
 	}
 
 	result := RouteResponse{}
