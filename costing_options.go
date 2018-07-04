@@ -5,6 +5,7 @@ type CostingOptions struct {
 }
 
 type CostingOption struct {
-	CountryCrossingPenalty float32 `json:"country_crossing_penalty,omitempty"`
-	TollBoothPenalty       float32 `json:"toll_booth_penalty,omitempty"`
+	CountryCrossingPenalty int `json:"country_crossing_penalty,omitempty"`
+	TollBoothPenalty       int `json:"toll_booth_penalty,omitempty"`
+	CountryCrossingCost    int `json:"country_crossing_cost,omitempty"`
 }
