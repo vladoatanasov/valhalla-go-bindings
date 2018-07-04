@@ -20,10 +20,11 @@ func main() {
 		Lon: -87.623402,
 	})
 
-	request.Costing = "auto"
+	request.Costing = "truck"
 	request.DirectionsOptions.Units = "miles"
 	request.DirectionsOptions.Narrative = false
-	request.CostingOptions.Auto.CountryCrossingPenalty = 2000.0
+	request.CostingOptions.Truck.CountryCrossingPenalty = 1
+	request.CostingOptions.Truck.CountryCrossingCost = 12000
 	request.ID = "Chicago sightseeing"
 
 	route, err := c.Route(request)
