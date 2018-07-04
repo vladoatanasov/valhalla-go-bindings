@@ -13,6 +13,7 @@ type RouteRequest struct {
 	ID                string            `json:"id,omitempty"`
 	CostingOptions    CostingOptions    `json:"costing_options,omitempty"`
 	AvoidLocations    []Location        `json:"avoid_locations,omitempty"`
+	Verbose           bool              `json:"verbose,omitempty"`
 }
 
 type RouteResponse struct {
