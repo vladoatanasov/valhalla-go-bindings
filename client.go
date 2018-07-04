@@ -1,6 +1,8 @@
 package valhalla
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -16,11 +18,11 @@ func New(endpoint string) *Client {
 	}
 }
 
-func (c *Client) request(method, resource string, body io.Reader) ([]byte, int, error) {
+func (c *Client) request(method, resource string, body io.Reader) ([]byte, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(method, c.Endpoint+"/"+resource, body)
 	if err != nil {
-		return nil, 500, err
+		return nil, err
 	}
 
 	// todo: hide debug information once I'm done
@@ -29,7 +31,7 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, int, 
 
 	res, err := client.Do(req)
 	if err != nil {
-		return nil, 500, err
+		return nil, err
 	}
 
 	defer res.Body.Close()
@@ -38,6 +40,20 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, int, 
 	// log.Println(string(dump))
 
 	r, err := ioutil.ReadAll(res.Body)
-	return r, res.StatusCode, err
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		result := ValhallaError{}
+		err = json.Unmarshal(r, &result)
+		if err != nil {
+			return nil, err
+		}
+
+		return nil, fmt.Errorf("%+v", result)
+	}
+
+	return r, err
 
 }

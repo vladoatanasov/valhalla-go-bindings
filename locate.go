@@ -3,7 +3,6 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 type LocateResponse []struct {
@@ -160,19 +159,9 @@ func (c *Client) Locate(request RouteRequest) (LocateResponse, error) {
 		return LocateResponse{}, err
 	}
 
-	response, status, err := c.request("GET", "locate", bytes.NewReader(r))
+	response, err := c.request("GET", "locate", bytes.NewReader(r))
 	if err != nil {
 		return LocateResponse{}, err
-	}
-
-	if status >= 400 {
-		result := ValhallaError{}
-		err = json.Unmarshal(response, &result)
-		if err != nil {
-			return LocateResponse{}, err
-		}
-
-		return LocateResponse{}, fmt.Errorf("%+v", result)
 	}
 
 	result := LocateResponse{}

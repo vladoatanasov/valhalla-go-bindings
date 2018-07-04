@@ -3,7 +3,6 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 type RouteRequest struct {
@@ -84,19 +83,9 @@ func (c *Client) Route(request RouteRequest) (RouteResponse, error) {
 		return RouteResponse{}, err
 	}
 
-	response, status, err := c.request("GET", "route", bytes.NewReader(r))
+	response, err := c.request("GET", "route", bytes.NewReader(r))
 	if err != nil {
 		return RouteResponse{}, err
-	}
-
-	if status >= 400 {
-		result := ValhallaError{}
-		err = json.Unmarshal(response, &result)
-		if err != nil {
-			return RouteResponse{}, err
-		}
-
-		return RouteResponse{}, fmt.Errorf("%+v", result)
 	}
 
 	result := RouteResponse{}
