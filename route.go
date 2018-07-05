@@ -13,6 +13,17 @@ type RouteRequest struct {
 	CostingOptions    CostingOptions    `json:"costing_options,omitempty"`
 	AvoidLocations    []Location        `json:"avoid_locations,omitempty"`
 	Verbose           bool              `json:"verbose,omitempty"`
+
+	// isochrone request
+	Contours   []Contour `json:"contours,omitempty"`
+	Polygons   bool      `json:"polygons,omitempty"`
+	Denoise    float32   `json:"denoise,omitempty"`
+	Generalize float32   `json:"generalize,omitempty"`
+}
+
+type Contour struct {
+	Time  int    `json:"time,omitempty"`
+	Color string `json:"color,omitempty"`
 }
 
 type RouteResponse struct {
