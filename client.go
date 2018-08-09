@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type Client struct {
@@ -19,7 +20,9 @@ func New(endpoint string) *Client {
 }
 
 func (c *Client) request(method, resource string, body io.Reader) ([]byte, error) {
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: time.Minute * 2,
+	}
 	req, err := http.NewRequest(method, c.Endpoint+"/"+resource, body)
 	if err != nil {
 		return nil, err
