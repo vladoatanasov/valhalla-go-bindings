@@ -31,25 +31,7 @@ type RouteResponse struct {
 				MinLat float64 `json:"min_lat"`
 				MinLon float64 `json:"min_lon"`
 			} `json:"summary"`
-			Maneuvers []struct {
-				TravelMode                       string   `json:"travel_mode"`
-				BeginShapeIndex                  int      `json:"begin_shape_index"`
-				Length                           float64  `json:"length"`
-				Time                             int      `json:"time"`
-				Type                             int      `json:"type"`
-				EndShapeIndex                    int      `json:"end_shape_index"`
-				Instruction                      string   `json:"instruction"`
-				VerbalPreTransitionInstruction   string   `json:"verbal_pre_transition_instruction"`
-				TravelType                       string   `json:"travel_type"`
-				StreetNames                      []string `json:"street_names,omitempty"`
-				VerbalTransitionAlertInstruction string   `json:"verbal_transition_alert_instruction,omitempty"`
-				VerbalPostTransitionInstruction  string   `json:"verbal_post_transition_instruction,omitempty"`
-				Sign                             struct {
-					ExitBranchElements []struct {
-						Text string `json:"text"`
-					} `json:"exit_branch_elements"`
-				} `json:"sign,omitempty"`
-			} `json:"maneuvers"`
+			Maneuvers []Maneuver `json:"maneuvers"`
 		} `json:"legs"`
 		Summary struct {
 			MaxLon float64 `json:"max_lon"`
@@ -67,6 +49,26 @@ type RouteResponse struct {
 			SideOfStreet  string  `json:"side_of_street"`
 		} `json:"locations"`
 	} `json:"trip"`
+}
+
+type Maneuver struct {
+	TravelMode                       string   `json:"travel_mode"`
+	BeginShapeIndex                  int      `json:"begin_shape_index"`
+	Length                           float64  `json:"length"`
+	Time                             int      `json:"time"`
+	Type                             int      `json:"type"`
+	EndShapeIndex                    int      `json:"end_shape_index"`
+	Instruction                      string   `json:"instruction"`
+	VerbalPreTransitionInstruction   string   `json:"verbal_pre_transition_instruction"`
+	TravelType                       string   `json:"travel_type"`
+	StreetNames                      []string `json:"street_names,omitempty"`
+	VerbalTransitionAlertInstruction string   `json:"verbal_transition_alert_instruction,omitempty"`
+	VerbalPostTransitionInstruction  string   `json:"verbal_post_transition_instruction,omitempty"`
+	Sign                             struct {
+		ExitBranchElements []struct {
+			Text string `json:"text"`
+		} `json:"exit_branch_elements"`
+	} `json:"sign,omitempty"`
 }
 
 func (c *Client) Route(request RouteRequest) (RouteResponse, error) {
