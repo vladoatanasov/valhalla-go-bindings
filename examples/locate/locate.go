@@ -10,24 +10,19 @@ func main() {
 	c := valhalla.New("http://localhost:8002")
 
 	request := valhalla.RouteRequest{}
+	request.Verbose = true
 	request.Locations = append(request.Locations, valhalla.Location{
-		Lat: 42.015576,
-		Lon: -87.841412,
+		Lat: 41.885619,
+		Lon: -87.621311,
 	})
 
-	request.Locations = append(request.Locations, valhalla.Location{
-		Lat: 41.818609,
-		Lon: -87.623402,
-	})
-
-	request.Costing = "truck"
+	request.Costing = "auto"
 	request.DirectionsOptions.Units = "miles"
 	request.DirectionsOptions.Narrative = false
-	request.CostingOptions.Truck.CountryCrossingPenalty = 1
-	request.CostingOptions.Truck.CountryCrossingCost = 12000
+	request.CostingOptions.Auto.CountryCrossingPenalty = 2000.0
 	request.ID = "Chicago sightseeing"
 
-	route, err := c.Route(request)
+	route, err := c.Locate(request)
 	if err != nil {
 		log.Fatal(err)
 	}

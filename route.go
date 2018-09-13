@@ -12,6 +12,18 @@ type RouteRequest struct {
 	ID                string            `json:"id,omitempty"`
 	CostingOptions    CostingOptions    `json:"costing_options,omitempty"`
 	AvoidLocations    []Location        `json:"avoid_locations,omitempty"`
+	Verbose           bool              `json:"verbose,omitempty"`
+
+	// isochrone request
+	Contours   []Contour `json:"contours,omitempty"`
+	Polygons   bool      `json:"polygons,omitempty"`
+	Denoise    float32   `json:"denoise,omitempty"`
+	Generalize float32   `json:"generalize,omitempty"`
+}
+
+type Contour struct {
+	Time  int    `json:"time,omitempty"`
+	Color string `json:"color,omitempty"`
 }
 
 type RouteResponse struct {
@@ -69,6 +81,13 @@ type Maneuver struct {
 			Text string `json:"text"`
 		} `json:"exit_branch_elements"`
 	} `json:"sign,omitempty"`
+}
+
+type ValhallaError struct {
+	ErrorCode  int    `json:"error_code"`
+	Error      string `json:"error"`
+	StatusCode int    `json:"status_code"`
+	Status     string `json:"status"`
 }
 
 func (c *Client) Route(request RouteRequest) (RouteResponse, error) {

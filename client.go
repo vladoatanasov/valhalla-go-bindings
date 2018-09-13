@@ -1,9 +1,12 @@
 package valhalla
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type Client struct {
@@ -17,7 +20,9 @@ func New(endpoint string) *Client {
 }
 
 func (c *Client) request(method, resource string, body io.Reader) ([]byte, error) {
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: time.Minute * 2,
+	}
 	req, err := http.NewRequest(method, c.Endpoint+"/"+resource, body)
 	if err != nil {
 		return nil, err
@@ -37,6 +42,21 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, error
 	// dump, _ := httputil.DumpResponse(res, true)
 	// log.Println(string(dump))
 
-	return ioutil.ReadAll(res.Body)
+	r, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		result := ValhallaError{}
+		err = json.Unmarshal(r, &result)
+		if err != nil {
+			return nil, err
+		}
+
+		return nil, fmt.Errorf("%+v", result)
+	}
+
+	return r, err
 
 }
