@@ -3,15 +3,22 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 type ElevationRequest struct {
-	HeightPrecision  int    `json:"height_precision"`
-	ID               string `json:"id"`
-	Range            bool   `json:"range"`
-	ShapeFormat      string `json:"shape_format"`
-	EncodedPolyline  string `json:"encoded_polyline"`
-	ResampleDistance int    `json:"resample_distance"`
+	HeightPrecision  *int             `json:"height_precision,omitempty"`
+	ID               string           `json:"id"`
+	Range            bool             `json:"range"`
+	ShapeFormat      string           `json:"shape_format,omitempty"`
+	EncodedPolyline  string           `json:"encoded_polyline,omitempty"`
+	Shape            []ElevationPoint `json:"shape,omitempty"`
+	ResampleDistance *int             `json:"resample_distance,omitempty"`
+}
+
+type ElevationPoint struct {
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
 }
 
 type ElevationResponse struct {
@@ -21,7 +28,12 @@ type ElevationResponse struct {
 }
 
 func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
+	//shape_format
+	if len(request.EncodedPolyline) > 0 && len(request.ShapeFormat) == 0 {
+		request.ShapeFormat = "polyline6"
+	}
 	r, err := json.Marshal(request)
+	fmt.Printf("%q", r)
 	if err != nil {
 		return ElevationResponse{}, err
 	}
