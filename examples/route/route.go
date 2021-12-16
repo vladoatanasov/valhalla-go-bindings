@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	valhalla "github.com/Kamion/valhalla-go-bindings"
+	valhalla "github.com/littlemonkeyltd/valhalla-go-bindings"
 )
 
 func main() {
