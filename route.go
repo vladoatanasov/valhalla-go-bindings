@@ -67,7 +67,7 @@ type Maneuver struct {
 	TravelMode                       string   `json:"travel_mode"`
 	BeginShapeIndex                  int      `json:"begin_shape_index"`
 	Length                           float64  `json:"length"`
-	Time                             int      `json:"time"`
+	Time                             float64  `json:"time"`
 	Type                             int      `json:"type"`
 	EndShapeIndex                    int      `json:"end_shape_index"`
 	Instruction                      string   `json:"instruction"`
