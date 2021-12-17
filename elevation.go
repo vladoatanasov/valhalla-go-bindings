@@ -3,7 +3,6 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 type ElevationRequest struct {
@@ -33,7 +32,7 @@ func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
 		request.ShapeFormat = "polyline6"
 	}
 	r, err := json.Marshal(request)
-	fmt.Printf("%q", r)
+
 	if err != nil {
 		return ElevationResponse{}, err
 	}
