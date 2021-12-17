@@ -21,9 +21,10 @@ type ElevationPoint struct {
 }
 
 type ElevationResponse struct {
-	EncodedPolyline string      `json:"encoded_polyline"`
-	RangeHeight     [][]float64 `json:"range_height"`
-	Height          []float64   `json:"height"`
+	EncodedPolyline string           `json:"encoded_polyline"`
+	RangeHeight     [][]float64      `json:"range_height"`
+	Height          []float64        `json:"height"`
+	Shape           []ElevationPoint `json:"shape,omitempty"`
 }
 
 func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
