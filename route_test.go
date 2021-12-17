@@ -174,3 +174,23 @@ func TestRoute(t *testing.T) {
 	}
 
 }
+
+func BenchmarkRoute(b *testing.B) {
+	routeRequest := RouteRequest{}
+	routeRequest.Costing = "auto"
+	routeRequest.Locations = []Location{
+		{
+			Lat:  -31.9523,
+			Lon:  115.8613,
+			City: "Perth",
+		},
+		{
+			Lat:  -33.8688,
+			Lon:  151.2093,
+			City: "Sydney",
+		},
+	}
+	for i := 0; i < b.N; i++ {
+		client.Route(routeRequest)
+	}
+}

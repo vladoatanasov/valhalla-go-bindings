@@ -10,19 +10,27 @@ import (
 )
 
 type Client struct {
-	Endpoint string
+	Endpoint   string
+	httpClient *http.Client
 }
 
 func New(endpoint string) *Client {
+	var t = http.DefaultTransport.(*http.Transport).Clone()
+	t.MaxIdleConns = 100
+	t.MaxConnsPerHost = 100
+	t.MaxIdleConnsPerHost = 100
+	var httpClient = &http.Client{
+		Timeout:   time.Second * 10,
+		Transport: t,
+	}
 	return &Client{
-		Endpoint: endpoint,
+		Endpoint:   endpoint,
+		httpClient: httpClient,
 	}
 }
 
 func (c *Client) request(method, resource string, body io.Reader) ([]byte, error) {
-	client := &http.Client{
-		Timeout: time.Minute * 2,
-	}
+
 	req, err := http.NewRequest(method, c.Endpoint+"/"+resource, body)
 	if err != nil {
 		return nil, err
@@ -32,7 +40,7 @@ func (c *Client) request(method, resource string, body io.Reader) ([]byte, error
 	// dump, _ := httputil.DumpRequest(req, true)
 	// log.Println(string(dump))
 
-	res, err := client.Do(req)
+	res, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
