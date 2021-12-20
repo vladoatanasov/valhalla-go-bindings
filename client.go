@@ -20,7 +20,7 @@ func New(endpoint string) *Client {
 	t.MaxConnsPerHost = 100
 	t.MaxIdleConnsPerHost = 100
 	var httpClient = &http.Client{
-		Timeout:   time.Second * 10,
+		Timeout:   time.Second * 30,
 		Transport: t,
 	}
 	return &Client{
