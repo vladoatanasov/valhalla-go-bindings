@@ -33,20 +33,20 @@ func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
 		request.ShapeFormat = "polyline6"
 	}
 	r, err := json.Marshal(request)
+	result := ElevationResponse{}
 
 	if err != nil {
-		return ElevationResponse{}, err
+		return result, err
 	}
 
 	response, err := c.request("GET", "height", bytes.NewReader(r))
 	if err != nil {
-		return ElevationResponse{}, err
+		return result, err
 	}
 
-	result := ElevationResponse{}
 	err = json.Unmarshal(response, &result)
 	if err != nil {
-		return ElevationResponse{}, err
+		return result, err
 	}
 
 	return result, nil
