@@ -26,7 +26,17 @@ type TraceAttributesRequest struct {
 	Costing         string `json:"costing,omitempty"`
 }
 type TraceAttributesResponse struct {
-	Edges []Edge `json:"edges"`
+	Edges           []Edge  `json:"edges"`
+	OSMChangeSet    int     `json:"osm_changeset"`
+	ConfidenceScore float64 `json:"confidence_score"`
+	Shape           string  `json:"shape"`
+	Units           string  `json:"units"`
+	Admins          []struct {
+		StateCode   string `json:"state_code"`
+		StateText   string `json:"state_text"`
+		CountryText string `json:"country_text"`
+		CountryCode string `json:"country_code"`
+	} `json:"admins"`
 }
 
 type Edge struct {
