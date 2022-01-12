@@ -2,7 +2,8 @@ package valhalla
 
 import (
 	"bytes"
-	"encoding/json"
+
+	easyjson "github.com/mailru/easyjson"
 )
 
 type StatusResponse struct {
@@ -19,7 +20,7 @@ func (c *Client) Status() (StatusResponse, error) {
 	}
 
 	result := StatusResponse{}
-	err = json.Unmarshal(response, &result)
+	err = easyjson.Unmarshal(response, &result)
 	if err != nil {
 		return StatusResponse{}, err
 	}

@@ -2,7 +2,6 @@ package valhalla
 
 import (
 	"bytes"
-	"encoding/json"
 
 	easyjson "github.com/mailru/easyjson"
 )
@@ -19,7 +18,7 @@ func (c *Client) RouteOptimized(request RouteRequest) (RouteResponse, error) {
 	}
 
 	result := RouteResponse{}
-	err = json.Unmarshal(response, &result)
+	err = easyjson.Unmarshal(response, &result)
 	if err != nil {
 		return RouteResponse{}, err
 	}

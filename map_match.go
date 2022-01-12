@@ -2,7 +2,6 @@ package valhalla
 
 import (
 	"bytes"
-	"encoding/json"
 
 	easyjson "github.com/mailru/easyjson"
 )
@@ -118,7 +117,7 @@ func (c *Client) TraceRoute(request TraceRouteRequest) (RouteResponse, error) {
 		return result, err
 	}
 
-	err = json.Unmarshal(response, &result)
+	err = easyjson.Unmarshal(response, &result)
 	if err != nil {
 		return result, err
 	}
@@ -137,7 +136,7 @@ func (c *Client) TraceAttributes(request TraceAttributesRequest) (TraceAttribute
 		return result, err
 	}
 
-	err = json.Unmarshal(response, &result)
+	err = easyjson.Unmarshal(response, &result)
 	if err != nil {
 		return result, err
 	}
