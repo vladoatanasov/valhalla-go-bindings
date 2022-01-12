@@ -3,6 +3,8 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
+
+	easyjson "github.com/mailru/easyjson"
 )
 
 type RouteRequest struct {
@@ -91,7 +93,7 @@ type ValhallaError struct {
 }
 
 func (c *Client) Route(request RouteRequest) (RouteResponse, error) {
-	r, err := json.Marshal(request)
+	r, err := easyjson.Marshal(request)
 	if err != nil {
 		return RouteResponse{}, err
 	}

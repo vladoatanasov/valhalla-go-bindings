@@ -2,7 +2,8 @@ package valhalla
 
 import (
 	"bytes"
-	"encoding/json"
+
+	"github.com/mailru/easyjson"
 )
 
 type ElevationRequest struct {
@@ -32,7 +33,7 @@ func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
 	if len(request.EncodedPolyline) > 0 && len(request.ShapeFormat) == 0 {
 		request.ShapeFormat = "polyline6"
 	}
-	r, err := json.Marshal(request)
+	r, err := easyjson.Marshal(request)
 	result := ElevationResponse{}
 
 	if err != nil {
@@ -44,7 +45,7 @@ func (c *Client) Height(request ElevationRequest) (ElevationResponse, error) {
 		return result, err
 	}
 
-	err = json.Unmarshal(response, &result)
+	err = easyjson.Unmarshal(response, &result)
 	if err != nil {
 		return result, err
 	}

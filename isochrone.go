@@ -2,13 +2,13 @@ package valhalla
 
 import (
 	"bytes"
-	"encoding/json"
 
+	easyjson "github.com/mailru/easyjson"
 	"github.com/paulmach/orb/geojson"
 )
 
 func (c *Client) Isochrone(request RouteRequest) (*geojson.FeatureCollection, error) {
-	r, err := json.Marshal(request)
+	r, err := easyjson.Marshal(request)
 	if err != nil {
 		return nil, err
 	}

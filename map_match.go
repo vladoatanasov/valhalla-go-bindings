@@ -3,6 +3,8 @@ package valhalla
 import (
 	"bytes"
 	"encoding/json"
+
+	easyjson "github.com/mailru/easyjson"
 )
 
 type TraceRouteRequest struct {
@@ -105,7 +107,7 @@ type Edge struct {
 }
 
 func (c *Client) TraceRoute(request TraceRouteRequest) (RouteResponse, error) {
-	r, err := json.Marshal(request)
+	r, err := easyjson.Marshal(request)
 	result := RouteResponse{}
 
 	if err != nil {
@@ -124,7 +126,7 @@ func (c *Client) TraceRoute(request TraceRouteRequest) (RouteResponse, error) {
 	return result, nil
 }
 func (c *Client) TraceAttributes(request TraceAttributesRequest) (TraceAttributesResponse, error) {
-	r, err := json.Marshal(request)
+	r, err := easyjson.Marshal(request)
 	result := TraceAttributesResponse{}
 
 	if err != nil {
