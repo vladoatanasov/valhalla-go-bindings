@@ -76,7 +76,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings(in *jlexer
 		case "directions_options":
 			(out.DirectionsOptions).UnmarshalEasyJSON(in)
 		case "trace_options":
-			easyjsonD10c3f52Decode(in, &out.TraceOptions)
+			(out.TraceOptions).UnmarshalEasyJSON(in)
 		case "linear_references":
 			out.LinearReferences = bool(in.Bool())
 		case "encoded_polyline":
@@ -143,7 +143,7 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings(out *jwrit
 	if true {
 		const prefix string = ",\"trace_options\":"
 		out.RawString(prefix)
-		easyjsonD10c3f52Encode(out, in.TraceOptions)
+		(in.TraceOptions).MarshalEasyJSON(out)
 	}
 	{
 		const prefix string = ",\"linear_references\":"
@@ -181,12 +181,7 @@ func (v *TraceRouteRequest) UnmarshalJSON(data []byte) error {
 func (v *TraceRouteRequest) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings(l, v)
 }
-func easyjsonD10c3f52Decode(in *jlexer.Lexer, out *struct {
-	SearchRadius          *float64 `json:"search_radius,omitempty"`
-	GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
-	BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
-	InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
-}) {
+func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(in *jlexer.Lexer, out *TraceOptions) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -255,12 +250,7 @@ func easyjsonD10c3f52Decode(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52Encode(out *jwriter.Writer, in struct {
-	SearchRadius          *float64 `json:"search_radius,omitempty"`
-	GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
-	BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
-	InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
-}) {
+func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(out *jwriter.Writer, in TraceOptions) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -302,7 +292,31 @@ func easyjsonD10c3f52Encode(out *jwriter.Writer, in struct {
 	}
 	out.RawByte('}')
 }
-func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(in *jlexer.Lexer, out *TraceAttributesResponse) {
+
+// MarshalJSON supports json.Marshaler interface
+func (v TraceOptions) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v TraceOptions) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *TraceOptions) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *TraceOptions) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(l, v)
+}
+func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexer.Lexer, out *TraceAttributesResponse) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -384,7 +398,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(in *jlexe
 						CountryText string `json:"country_text"`
 						CountryCode string `json:"country_code"`
 					}
-					easyjsonD10c3f52Decode1(in, &v5)
+					easyjsonD10c3f52Decode(in, &v5)
 					out.Admins = append(out.Admins, v5)
 					in.WantComma()
 				}
@@ -400,7 +414,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(in *jlexe
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(out *jwriter.Writer, in TraceAttributesResponse) {
+func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwriter.Writer, in TraceAttributesResponse) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -451,7 +465,7 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(out *jwri
 				if v8 > 0 {
 					out.RawByte(',')
 				}
-				easyjsonD10c3f52Encode1(out, v9)
+				easyjsonD10c3f52Encode(out, v9)
 			}
 			out.RawByte(']')
 		}
@@ -462,27 +476,27 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(out *jwri
 // MarshalJSON supports json.Marshaler interface
 func (v TraceAttributesResponse) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(&w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v TraceAttributesResponse) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings1(w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *TraceAttributesResponse) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(&r, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *TraceAttributesResponse) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings1(l, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(l, v)
 }
-func easyjsonD10c3f52Decode1(in *jlexer.Lexer, out *struct {
+func easyjsonD10c3f52Decode(in *jlexer.Lexer, out *struct {
 	StateCode   string `json:"state_code"`
 	StateText   string `json:"state_text"`
 	CountryText string `json:"country_text"`
@@ -524,7 +538,7 @@ func easyjsonD10c3f52Decode1(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52Encode1(out *jwriter.Writer, in struct {
+func easyjsonD10c3f52Encode(out *jwriter.Writer, in struct {
 	StateCode   string `json:"state_code"`
 	StateText   string `json:"state_text"`
 	CountryText string `json:"country_text"`
@@ -555,7 +569,7 @@ func easyjsonD10c3f52Encode1(out *jwriter.Writer, in struct {
 	}
 	out.RawByte('}')
 }
-func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexer.Lexer, out *TraceAttributesRequest) {
+func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexer.Lexer, out *TraceAttributesRequest) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -578,6 +592,8 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexe
 			out.EncodedPolyline = string(in.String())
 		case "costing":
 			out.Costing = string(in.String())
+		case "trace_options":
+			(out.TraceOptions).UnmarshalEasyJSON(in)
 		default:
 			in.SkipRecursive()
 		}
@@ -588,7 +604,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexe
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwriter.Writer, in TraceAttributesRequest) {
+func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwriter.Writer, in TraceAttributesRequest) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -602,33 +618,38 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwri
 		out.RawString(prefix)
 		out.String(string(in.Costing))
 	}
+	if true {
+		const prefix string = ",\"trace_options\":"
+		out.RawString(prefix)
+		(in.TraceOptions).MarshalEasyJSON(out)
+	}
 	out.RawByte('}')
 }
 
 // MarshalJSON supports json.Marshaler interface
 func (v TraceAttributesRequest) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(&w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v TraceAttributesRequest) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings2(w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *TraceAttributesRequest) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(&r, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *TraceAttributesRequest) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings2(l, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(l, v)
 }
-func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexer.Lexer, out *Edge) {
+func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings4(in *jlexer.Lexer, out *Edge) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -705,7 +726,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexe
 		case "surface":
 			out.Surface = string(in.String())
 		case "sign":
-			easyjsonD10c3f52Decode2(in, &out.Sign)
+			easyjsonD10c3f52Decode1(in, &out.Sign)
 		case "travel_mode":
 			out.TravelMode = string(in.String())
 		case "vehicle_type":
@@ -749,7 +770,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexe
 		case "truck_route":
 			out.TruckRoute = bool(in.Bool())
 		case "end_node":
-			easyjsonD10c3f52Decode3(in, &out.EndNode)
+			easyjsonD10c3f52Decode2(in, &out.EndNode)
 		default:
 			in.SkipRecursive()
 		}
@@ -760,7 +781,7 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexe
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwriter.Writer, in Edge) {
+func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings4(out *jwriter.Writer, in Edge) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -868,7 +889,7 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwri
 	{
 		const prefix string = ",\"sign\":"
 		out.RawString(prefix)
-		easyjsonD10c3f52Encode2(out, in.Sign)
+		easyjsonD10c3f52Encode1(out, in.Sign)
 	}
 	{
 		const prefix string = ",\"travel_mode\":"
@@ -978,7 +999,7 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwri
 	{
 		const prefix string = ",\"end_node\":"
 		out.RawString(prefix)
-		easyjsonD10c3f52Encode3(out, in.EndNode)
+		easyjsonD10c3f52Encode2(out, in.EndNode)
 	}
 	out.RawByte('}')
 }
@@ -986,27 +1007,27 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwri
 // MarshalJSON supports json.Marshaler interface
 func (v Edge) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(&w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings4(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Edge) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(w, v)
+	easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings4(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *Edge) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(&r, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings4(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Edge) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(l, v)
+	easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings4(l, v)
 }
-func easyjsonD10c3f52Decode3(in *jlexer.Lexer, out *struct {
+func easyjsonD10c3f52Decode2(in *jlexer.Lexer, out *struct {
 	IntersectingEdges []struct {
 		BeginHeading            float64 `json:"begin_heading"`
 		FromEdgeNameConsistency bool    `json:"from_edge_name_consistency"`
@@ -1085,7 +1106,7 @@ func easyjsonD10c3f52Decode3(in *jlexer.Lexer, out *struct {
 						Use                     string  `json:"use"`
 						RoadClass               string  `json:"road_class"`
 					}
-					easyjsonD10c3f52Decode4(in, &v13)
+					easyjsonD10c3f52Decode3(in, &v13)
 					out.IntersectingEdges = append(out.IntersectingEdges, v13)
 					in.WantComma()
 				}
@@ -1111,7 +1132,7 @@ func easyjsonD10c3f52Decode3(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52Encode3(out *jwriter.Writer, in struct {
+func easyjsonD10c3f52Encode2(out *jwriter.Writer, in struct {
 	IntersectingEdges []struct {
 		BeginHeading            float64 `json:"begin_heading"`
 		FromEdgeNameConsistency bool    `json:"from_edge_name_consistency"`
@@ -1142,7 +1163,7 @@ func easyjsonD10c3f52Encode3(out *jwriter.Writer, in struct {
 				if v14 > 0 {
 					out.RawByte(',')
 				}
-				easyjsonD10c3f52Encode4(out, v15)
+				easyjsonD10c3f52Encode3(out, v15)
 			}
 			out.RawByte(']')
 		}
@@ -1174,7 +1195,7 @@ func easyjsonD10c3f52Encode3(out *jwriter.Writer, in struct {
 	}
 	out.RawByte('}')
 }
-func easyjsonD10c3f52Decode4(in *jlexer.Lexer, out *struct {
+func easyjsonD10c3f52Decode3(in *jlexer.Lexer, out *struct {
 	BeginHeading            float64 `json:"begin_heading"`
 	FromEdgeNameConsistency bool    `json:"from_edge_name_consistency"`
 	ToEdgeNameConsistency   bool    `json:"to_edge_name_consistency"`
@@ -1228,7 +1249,7 @@ func easyjsonD10c3f52Decode4(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52Encode4(out *jwriter.Writer, in struct {
+func easyjsonD10c3f52Encode3(out *jwriter.Writer, in struct {
 	BeginHeading            float64 `json:"begin_heading"`
 	FromEdgeNameConsistency bool    `json:"from_edge_name_consistency"`
 	ToEdgeNameConsistency   bool    `json:"to_edge_name_consistency"`
@@ -1283,7 +1304,7 @@ func easyjsonD10c3f52Encode4(out *jwriter.Writer, in struct {
 	}
 	out.RawByte('}')
 }
-func easyjsonD10c3f52Decode2(in *jlexer.Lexer, out *struct {
+func easyjsonD10c3f52Decode1(in *jlexer.Lexer, out *struct {
 	ExitNumber []string `json:"exit_number"`
 	ExitBranch []string `json:"exit_branch"`
 	ExitToward []string `json:"exit_toward"`
@@ -1409,7 +1430,7 @@ func easyjsonD10c3f52Decode2(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonD10c3f52Encode2(out *jwriter.Writer, in struct {
+func easyjsonD10c3f52Encode1(out *jwriter.Writer, in struct {
 	ExitNumber []string `json:"exit_number"`
 	ExitBranch []string `json:"exit_branch"`
 	ExitToward []string `json:"exit_toward"`

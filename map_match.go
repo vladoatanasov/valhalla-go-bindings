@@ -2,6 +2,7 @@ package valhalla
 
 import (
 	"bytes"
+	"encoding/json"
 
 	easyjson "github.com/mailru/easyjson"
 )
@@ -12,19 +13,20 @@ type TraceRouteRequest struct {
 	UseTimestamps     bool              `json:"use_timestamps"`
 	Costing           string            `json:"costing,omitempty"`
 	DirectionsOptions DirectionsOptions `json:"directions_options,omitempty"`
-	TraceOptions      struct {
-		SearchRadius          *float64 `json:"search_radius,omitempty"`
-		GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
-		BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
-		InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
-	} `json:"trace_options,omitempty"`
-	LinearReferences bool   `json:"linear_references"`
-	EncodedPolyline  string `json:"encoded_polyline"`
+	TraceOptions      TraceOptions      `json:"trace_options,omitempty"`
+	LinearReferences  bool              `json:"linear_references"`
+	EncodedPolyline   string            `json:"encoded_polyline"`
 }
-
+type TraceOptions struct {
+	SearchRadius          *float64 `json:"search_radius,omitempty"`
+	GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
+	BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
+	InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
+}
 type TraceAttributesRequest struct {
-	EncodedPolyline string `json:"encoded_polyline"`
-	Costing         string `json:"costing,omitempty"`
+	EncodedPolyline string       `json:"encoded_polyline"`
+	Costing         string       `json:"costing,omitempty"`
+	TraceOptions    TraceOptions `json:"trace_options,omitempty"`
 }
 type TraceAttributesResponse struct {
 	Edges           []Edge  `json:"edges"`
@@ -117,7 +119,7 @@ func (c *Client) TraceRoute(request TraceRouteRequest) (RouteResponse, error) {
 		return result, err
 	}
 
-	err = easyjson.Unmarshal(response, &result)
+	err = json.Unmarshal(response, &result)
 	if err != nil {
 		return result, err
 	}
@@ -136,7 +138,7 @@ func (c *Client) TraceAttributes(request TraceAttributesRequest) (TraceAttribute
 		return result, err
 	}
 
-	err = easyjson.Unmarshal(response, &result)
+	err = json.Unmarshal(response, &result)
 	if err != nil {
 		return result, err
 	}
