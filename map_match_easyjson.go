@@ -81,6 +81,8 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings(in *jlexer
 			out.LinearReferences = bool(in.Bool())
 		case "encoded_polyline":
 			out.EncodedPolyline = string(in.String())
+		case "shape_match":
+			out.ShapeMatch = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -154,6 +156,11 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings(out *jwrit
 		const prefix string = ",\"encoded_polyline\":"
 		out.RawString(prefix)
 		out.String(string(in.EncodedPolyline))
+	}
+	if in.ShapeMatch != "" {
+		const prefix string = ",\"shape_match\":"
+		out.RawString(prefix)
+		out.String(string(in.ShapeMatch))
 	}
 	out.RawByte('}')
 }
@@ -594,6 +601,8 @@ func easyjsonD10c3f52DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexe
 			out.Costing = string(in.String())
 		case "trace_options":
 			(out.TraceOptions).UnmarshalEasyJSON(in)
+		case "shape_match":
+			out.ShapeMatch = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -622,6 +631,11 @@ func easyjsonD10c3f52EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwri
 		const prefix string = ",\"trace_options\":"
 		out.RawString(prefix)
 		(in.TraceOptions).MarshalEasyJSON(out)
+	}
+	if in.ShapeMatch != "" {
+		const prefix string = ",\"shape_match\":"
+		out.RawString(prefix)
+		out.String(string(in.ShapeMatch))
 	}
 	out.RawByte('}')
 }
