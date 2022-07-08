@@ -16,18 +16,19 @@ type TraceRouteRequest struct {
 	TraceOptions      TraceOptions      `json:"trace_options,omitempty"`
 	LinearReferences  bool              `json:"linear_references"`
 	EncodedPolyline   string            `json:"encoded_polyline"`
+	ShapeMatch        string            `json:"shape_match,omitempty"`
 }
 type TraceOptions struct {
 	SearchRadius          *float64 `json:"search_radius,omitempty"`
 	GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
 	BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
 	InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
-	ShapeMatch            string   `json:"shape_match,omitempty"`
 }
 type TraceAttributesRequest struct {
 	EncodedPolyline string       `json:"encoded_polyline"`
 	Costing         string       `json:"costing,omitempty"`
 	TraceOptions    TraceOptions `json:"trace_options,omitempty"`
+	ShapeMatch      string       `json:"shape_match,omitempty"`
 }
 type TraceAttributesResponse struct {
 	Edges           []Edge  `json:"edges"`
