@@ -22,6 +22,7 @@ type TraceOptions struct {
 	GPSAccuracy           *float64 `json:"gps_accuracy,omitempty"`
 	BreakageDistance      *float64 `json:"breakage_distance,omitempty"`
 	InterpolationDistance *float64 `json:"interpolation_distance,omitempty"`
+	ShapeMatch            *float64 `json:"shape_match,omitempty"`
 }
 type TraceAttributesRequest struct {
 	EncodedPolyline string       `json:"encoded_polyline"`
