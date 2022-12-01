@@ -62,6 +62,7 @@ type RouteResponse struct {
 			SideOfStreet  string  `json:"side_of_street"`
 		} `json:"locations"`
 	} `json:"trip"`
+	Alternates []RouteResponse `json:"alternates"`
 }
 
 type Maneuver struct {

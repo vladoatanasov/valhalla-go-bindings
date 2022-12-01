@@ -127,6 +127,29 @@ func easyjson44127895DecodeGithubComLittlemonkeyltdValhallaGoBindings1(in *jlexe
 			out.ID = string(in.String())
 		case "trip":
 			easyjson44127895Decode(in, &out.Trip)
+		case "alternates":
+			if in.IsNull() {
+				in.Skip()
+				out.Alternates = nil
+			} else {
+				in.Delim('[')
+				if out.Alternates == nil {
+					if !in.IsDelim(']') {
+						out.Alternates = make([]RouteResponse, 0, 0)
+					} else {
+						out.Alternates = []RouteResponse{}
+					}
+				} else {
+					out.Alternates = (out.Alternates)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v1 RouteResponse
+					(v1).UnmarshalEasyJSON(in)
+					out.Alternates = append(out.Alternates, v1)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		default:
 			in.SkipRecursive()
 		}
@@ -150,6 +173,22 @@ func easyjson44127895EncodeGithubComLittlemonkeyltdValhallaGoBindings1(out *jwri
 		const prefix string = ",\"trip\":"
 		out.RawString(prefix)
 		easyjson44127895Encode(out, in.Trip)
+	}
+	{
+		const prefix string = ",\"alternates\":"
+		out.RawString(prefix)
+		if in.Alternates == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
+			out.RawByte('[')
+			for v2, v3 := range in.Alternates {
+				if v2 > 0 {
+					out.RawByte(',')
+				}
+				(v3).MarshalEasyJSON(out)
+			}
+			out.RawByte(']')
+		}
 	}
 	out.RawByte('}')
 }
@@ -274,7 +313,7 @@ func easyjson44127895Decode(in *jlexer.Lexer, out *struct {
 					out.Legs = (out.Legs)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v1 struct {
+					var v4 struct {
 						Shape   string `json:"shape"`
 						Summary struct {
 							MaxLon float64 `json:"max_lon"`
@@ -286,8 +325,8 @@ func easyjson44127895Decode(in *jlexer.Lexer, out *struct {
 						} `json:"summary"`
 						Maneuvers []Maneuver `json:"maneuvers"`
 					}
-					easyjson44127895Decode1(in, &v1)
-					out.Legs = append(out.Legs, v1)
+					easyjson44127895Decode1(in, &v4)
+					out.Legs = append(out.Legs, v4)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -322,15 +361,15 @@ func easyjson44127895Decode(in *jlexer.Lexer, out *struct {
 					out.Locations = (out.Locations)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v2 struct {
+					var v5 struct {
 						OriginalIndex int     `json:"original_index"`
 						Type          string  `json:"type"`
 						Lon           float64 `json:"lon"`
 						Lat           float64 `json:"lat"`
 						SideOfStreet  string  `json:"side_of_street"`
 					}
-					easyjson44127895Decode3(in, &v2)
-					out.Locations = append(out.Locations, v2)
+					easyjson44127895Decode3(in, &v5)
+					out.Locations = append(out.Locations, v5)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -408,11 +447,11 @@ func easyjson44127895Encode(out *jwriter.Writer, in struct {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v3, v4 := range in.Legs {
-				if v3 > 0 {
+			for v6, v7 := range in.Legs {
+				if v6 > 0 {
 					out.RawByte(',')
 				}
-				easyjson44127895Encode1(out, v4)
+				easyjson44127895Encode1(out, v7)
 			}
 			out.RawByte(']')
 		}
@@ -429,11 +468,11 @@ func easyjson44127895Encode(out *jwriter.Writer, in struct {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v5, v6 := range in.Locations {
-				if v5 > 0 {
+			for v8, v9 := range in.Locations {
+				if v8 > 0 {
 					out.RawByte(',')
 				}
-				easyjson44127895Encode3(out, v6)
+				easyjson44127895Encode3(out, v9)
 			}
 			out.RawByte(']')
 		}
@@ -663,9 +702,9 @@ func easyjson44127895Decode1(in *jlexer.Lexer, out *struct {
 					out.Maneuvers = (out.Maneuvers)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v7 Maneuver
-					(v7).UnmarshalEasyJSON(in)
-					out.Maneuvers = append(out.Maneuvers, v7)
+					var v10 Maneuver
+					(v10).UnmarshalEasyJSON(in)
+					out.Maneuvers = append(out.Maneuvers, v10)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -712,11 +751,11 @@ func easyjson44127895Encode1(out *jwriter.Writer, in struct {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v8, v9 := range in.Maneuvers {
-				if v8 > 0 {
+			for v11, v12 := range in.Maneuvers {
+				if v11 > 0 {
 					out.RawByte(',')
 				}
-				(v9).MarshalEasyJSON(out)
+				(v12).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -758,9 +797,9 @@ func easyjson44127895DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexe
 					out.Locations = (out.Locations)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v10 Location
-					(v10).UnmarshalEasyJSON(in)
-					out.Locations = append(out.Locations, v10)
+					var v13 Location
+					(v13).UnmarshalEasyJSON(in)
+					out.Locations = append(out.Locations, v13)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -789,9 +828,9 @@ func easyjson44127895DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexe
 					out.AvoidLocations = (out.AvoidLocations)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v11 Location
-					(v11).UnmarshalEasyJSON(in)
-					out.AvoidLocations = append(out.AvoidLocations, v11)
+					var v14 Location
+					(v14).UnmarshalEasyJSON(in)
+					out.AvoidLocations = append(out.AvoidLocations, v14)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -814,9 +853,9 @@ func easyjson44127895DecodeGithubComLittlemonkeyltdValhallaGoBindings2(in *jlexe
 					out.Contours = (out.Contours)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v12 Contour
-					(v12).UnmarshalEasyJSON(in)
-					out.Contours = append(out.Contours, v12)
+					var v15 Contour
+					(v15).UnmarshalEasyJSON(in)
+					out.Contours = append(out.Contours, v15)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -847,11 +886,11 @@ func easyjson44127895EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwri
 		out.RawString(prefix[1:])
 		{
 			out.RawByte('[')
-			for v13, v14 := range in.Locations {
-				if v13 > 0 {
+			for v16, v17 := range in.Locations {
+				if v16 > 0 {
 					out.RawByte(',')
 				}
-				(v14).MarshalEasyJSON(out)
+				(v17).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -906,11 +945,11 @@ func easyjson44127895EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwri
 		}
 		{
 			out.RawByte('[')
-			for v15, v16 := range in.AvoidLocations {
-				if v15 > 0 {
+			for v18, v19 := range in.AvoidLocations {
+				if v18 > 0 {
 					out.RawByte(',')
 				}
-				(v16).MarshalEasyJSON(out)
+				(v19).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -935,11 +974,11 @@ func easyjson44127895EncodeGithubComLittlemonkeyltdValhallaGoBindings2(out *jwri
 		}
 		{
 			out.RawByte('[')
-			for v17, v18 := range in.Contours {
-				if v17 > 0 {
+			for v20, v21 := range in.Contours {
+				if v20 > 0 {
 					out.RawByte(',')
 				}
-				(v18).MarshalEasyJSON(out)
+				(v21).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -1053,9 +1092,9 @@ func easyjson44127895DecodeGithubComLittlemonkeyltdValhallaGoBindings3(in *jlexe
 					out.StreetNames = (out.StreetNames)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v19 string
-					v19 = string(in.String())
-					out.StreetNames = append(out.StreetNames, v19)
+					var v22 string
+					v22 = string(in.String())
+					out.StreetNames = append(out.StreetNames, v22)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -1130,11 +1169,11 @@ func easyjson44127895EncodeGithubComLittlemonkeyltdValhallaGoBindings3(out *jwri
 		out.RawString(prefix)
 		{
 			out.RawByte('[')
-			for v20, v21 := range in.StreetNames {
-				if v20 > 0 {
+			for v23, v24 := range in.StreetNames {
+				if v23 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v21))
+				out.String(string(v24))
 			}
 			out.RawByte(']')
 		}
@@ -1223,11 +1262,11 @@ func easyjson44127895Decode4(in *jlexer.Lexer, out *struct {
 					out.ExitBranchElements = (out.ExitBranchElements)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v22 struct {
+					var v25 struct {
 						Text string `json:"text"`
 					}
-					easyjson44127895Decode5(in, &v22)
-					out.ExitBranchElements = append(out.ExitBranchElements, v22)
+					easyjson44127895Decode5(in, &v25)
+					out.ExitBranchElements = append(out.ExitBranchElements, v25)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -1257,11 +1296,11 @@ func easyjson44127895Encode4(out *jwriter.Writer, in struct {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v23, v24 := range in.ExitBranchElements {
-				if v23 > 0 {
+			for v26, v27 := range in.ExitBranchElements {
+				if v26 > 0 {
 					out.RawByte(',')
 				}
-				easyjson44127895Encode5(out, v24)
+				easyjson44127895Encode5(out, v27)
 			}
 			out.RawByte(']')
 		}
